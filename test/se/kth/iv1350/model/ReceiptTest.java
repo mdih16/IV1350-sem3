@@ -27,14 +27,14 @@ public class ReceiptTest {
         String expResult = "****************************\nReceipt\n****************************\n"
                             + sale.getTimeOfSale() 
                             + "\n" + "Description" + "\t\t" + "Qty" + "\t\t" + "Price" + "\n"
-                            + "Total:\t\t" + String.format("%.2f", sale.getTotalPrice()) + ":-\n"
-                            + "VAT:\t\t" + String.format("%.2f", sale.getTotalVAT()) + ":-\n"
+                            + "Total:\t\t" + String.format("%.2f", (double) 0) + ":-\n"
+                            + "VAT:\t\t" + String.format("%.2f", (double) 0 )+ ":-\n"
                             + "Paid:\t\t" + String.format("%.2f", amountPaid) + ":-\n"
                             + "Change:\t\t" + String.format("%.2f", change) + ":-";
         String result = receipt.toString();
         assertTrue(result.contains(expResult), "Wrong printout");
-        assertTrue(result.contains(String.format("%.2f", sale.getTotalPrice())), "Wrong total price on receipt");
-        assertTrue(result.contains(String.format("%.2f", sale.getTotalVAT())), "Wrong VAT on receipt");
+        assertTrue(result.contains(String.format("%.2f", (double) 0)), "Wrong total price on receipt");
+        assertTrue(result.contains(String.format("%.2f", (double) 0)), "Wrong VAT on receipt");
         assertTrue(result.contains(String.format("%.2f", amountPaid)), "Wrong amount paid on receipt");
         assertTrue(result.contains(String.format("%.2f", change)), "Wrong change on receipt");
     }

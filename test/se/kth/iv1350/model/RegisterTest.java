@@ -22,7 +22,11 @@ public class RegisterTest {
     }
 
     @Test
-    public void testMakePayment() {
-
+    public void testMakePaymentReturnValue() {
+        Sale sale = new Sale();
+        double amountPaid = 100;
+        double expResult = 100;
+        double result = register.makePayment(amountPaid, sale);
+        assertEquals(expResult, result, "Wrong change returned");
     }
 }
