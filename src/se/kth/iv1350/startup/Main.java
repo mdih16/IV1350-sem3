@@ -3,6 +3,9 @@ package se.kth.iv1350.startup;
 import se.kth.iv1350.integration.AccountingSystem;
 import se.kth.iv1350.integration.InventorySystem;
 import se.kth.iv1350.view.View;
+
+import java.io.IOException;
+
 import se.kth.iv1350.controller.Controller;
 
 /**
@@ -13,7 +16,7 @@ public class Main {
     /**
      * Main function that initialises objects before the program is run.
      */
-    public static void main(String[] args)
+    public static void main(String[] args) throws IOException
     {
         AccountingSystem accSys = new AccountingSystem();
         InventorySystem invSys = new InventorySystem();

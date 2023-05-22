@@ -11,6 +11,7 @@ import se.kth.iv1350.integration.ItemInformation;
 public class Sale {
     private LocalDateTime timeOfSale;
     private ArrayList<Item> items = new ArrayList<>();
+    private ArrayList<SaleObserver> saleObservers;
     private double runningTotal = 0;
     private double totalVAT = 0;
     private double totalPrice;
@@ -127,7 +128,25 @@ public class Sale {
     public double endSale()
     {
         setTotalPrice();
+        notifyObservers();
         return totalPrice;
+    }
+
+    /**
+     * Adds observers to the sale object.
+     * @param observer The observing objects.
+     */
+    public void addSaleObservers(ArrayList<SaleObserver> observers)
+    {
+        saleObservers = observers;
+    }
+
+    private void notifyObservers()
+    {
+        for (SaleObserver observer : saleObservers)
+        {
+            observer.newSale(totalPrice);
+        }
     }
 
     private void setTimeOfSale()

@@ -1,6 +1,7 @@
 package se.kth.iv1350.integration;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,6 +25,29 @@ public class InventorySystemTest {
     @Test
     public void testRetrieveItemInvalidId() {
         int itemId = -1;
-        assertNull(invSys.retrieveItem(itemId), "Invalid item identifier gave result other than null");
+        try 
+        {
+            invSys.retrieveItem(itemId);
+            fail("Able to retrieve item with invalid item id.");
+        }
+        catch (InvalidItemIdException e)
+        {
+            assertTrue(e.getInvalidId() == itemId, "Wrong item identifier supplied: " + e.getInvalidId());
+        }
+    }
+
+    @Test
+    public void testReachUnreachableDatabase() throws InvalidItemIdException
+    {
+        int itemId = 1;
+        try
+        {
+            invSys.retrieveItem(itemId);
+            fail("No exception thrown even tough database is not reachable.");
+        }
+        catch (DbUnreachableException e)
+        {
+            assertTrue(e.getMessage().equals("Not able to reach the database."), "Wrong exception message.");
+        }
     }
 }

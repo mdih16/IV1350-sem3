@@ -1,7 +1,11 @@
 package se.kth.iv1350.controller;
 
 import se.kth.iv1350.model.*;
+
+import java.util.ArrayList;
+
 import se.kth.iv1350.integration.AccountingSystem;
+import se.kth.iv1350.integration.InvalidItemIdException;
 import se.kth.iv1350.integration.InventorySystem;
 import se.kth.iv1350.integration.ItemInformation;
 
@@ -13,6 +17,7 @@ public class Controller {
     private final InventorySystem invSys;
     private final SaleLog saleLog;
     private final Register register;
+    private ArrayList<SaleObserver> saleObservers = new ArrayList<>();
     private Sale sale;
    
     /**
@@ -34,14 +39,17 @@ public class Controller {
     public void startNewSale()
     {
         sale = new Sale();
+        sale.addSaleObservers(saleObservers);
     }
 
     /**
      * Enter an item into the sale by using the item identifier.
      * @param itemId The item identifier of the item.
      * @return Information about the item.
+     * @throws InvalidItemIdException when item with given item identifier is not found in the system.
      */
-    public ItemInformation enterItem(int itemId)
+
+    public ItemInformation enterItem(int itemId) throws InvalidItemIdException
     {
         boolean itemInSale = sale.checkItem(itemId);
 
@@ -51,10 +59,16 @@ public class Controller {
         } 
         else
         {
-            ItemInformation itemInformation = invSys.retrieveItem(itemId);
-            if (itemInformation != null)
+            try 
+            {
+                ItemInformation itemInformation = invSys.retrieveItem(itemId);
                 sale.addItem(itemId, itemInformation);
-            return itemInformation;
+                return itemInformation;
+            }
+            catch (Exception e)
+            {
+                throw new OperationFailedException("Something went wrong when trying to add the item.", e);
+            }
         }
     }
 
@@ -88,5 +102,14 @@ public class Controller {
         invSys.updateInventory(sale);
         double change = register.makePayment(amountPaid, sale);
         return change;
+    }
+
+    /**
+     * Adds observer to saleObservers.
+     * @param observer The object observing.
+     */
+    public void addSaleObserver(SaleObserver observer)
+    {
+        saleObservers.add(observer);
     }
 }

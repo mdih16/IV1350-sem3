@@ -1,0 +1,18 @@
+22 maj 2023 10:34:28, Exception was thrown: Something went wrong when trying to add the item.
+se.kth.iv1350.controller.OperationFailedException: Something went wrong when trying to add the item.
+	at se.kth.iv1350.controller.Controller.enterItem(Controller.java:70)
+	at se.kth.iv1350.view.View.dummyExecution(View.java:74)
+	at se.kth.iv1350.startup.Main.main(Main.java:26)
+Caused by: se.kth.iv1350.integration.InvalidItemIdException: "-1" is not a valid ID
+	at se.kth.iv1350.integration.InventorySystem.retrieveItem(InventorySystem.java:35)
+	at se.kth.iv1350.controller.Controller.enterItem(Controller.java:64)
+	... 2 more
+22 maj 2023 10:34:28, Exception was thrown: Something went wrong when trying to add the item.
+se.kth.iv1350.controller.OperationFailedException: Something went wrong when trying to add the item.
+	at se.kth.iv1350.controller.Controller.enterItem(Controller.java:70)
+	at se.kth.iv1350.view.View.dummyExecution(View.java:74)
+	at se.kth.iv1350.startup.Main.main(Main.java:26)
+Caused by: se.kth.iv1350.integration.DbUnreachableException: Not able to reach the database.
+	at se.kth.iv1350.integration.InventorySystem.retrieveItem(InventorySystem.java:37)
+	at se.kth.iv1350.controller.Controller.enterItem(Controller.java:64)
+	... 2 more
