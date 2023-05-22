@@ -3,7 +3,7 @@ package se.kth.iv1350.controller;
 /**
  * Thrown when some operation fails
  */
-public class OperationFailedException extends RuntimeException {
+public class OperationFailedException extends Exception {
 
     /**
      * Creates a new instance of <code>OperationFailedException</code>. 

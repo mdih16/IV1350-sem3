@@ -5,6 +5,7 @@ import se.kth.iv1350.model.*;
 import java.util.ArrayList;
 
 import se.kth.iv1350.integration.AccountingSystem;
+import se.kth.iv1350.integration.DbUnreachableException;
 import se.kth.iv1350.integration.InvalidItemIdException;
 import se.kth.iv1350.integration.InventorySystem;
 import se.kth.iv1350.integration.ItemInformation;
@@ -47,9 +48,10 @@ public class Controller {
      * @param itemId The item identifier of the item.
      * @return Information about the item.
      * @throws InvalidItemIdException when item with given item identifier is not found in the system.
+     * @throws OperationFailedException when some operation was not able to finish succesfully.
      */
 
-    public ItemInformation enterItem(int itemId) throws InvalidItemIdException
+    public ItemInformation enterItem(int itemId) throws InvalidItemIdException, OperationFailedException
     {
         boolean itemInSale = sale.checkItem(itemId);
 
@@ -65,7 +67,7 @@ public class Controller {
                 sale.addItem(itemId, itemInformation);
                 return itemInformation;
             }
-            catch (Exception e)
+            catch (DbUnreachableException e)
             {
                 throw new OperationFailedException("Something went wrong when trying to add the item.", e);
             }

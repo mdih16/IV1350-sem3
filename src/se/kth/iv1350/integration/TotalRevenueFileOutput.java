@@ -1,4 +1,4 @@
-package se.kth.iv1350.util;
+package se.kth.iv1350.integration;
 
 import java.io.FileWriter;
 import java.io.IOException;

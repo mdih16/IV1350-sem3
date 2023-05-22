@@ -5,8 +5,8 @@ import java.io.IOException;
 import se.kth.iv1350.controller.Controller;
 import se.kth.iv1350.controller.OperationFailedException;
 import se.kth.iv1350.integration.InvalidItemIdException;
+import se.kth.iv1350.integration.TotalRevenueFileOutput;
 import se.kth.iv1350.util.LogHandler;
-import se.kth.iv1350.util.TotalRevenueFileOutput;
 
 /**
  * Represents a fake user interface with hardcoded calls to the controller. 
@@ -45,17 +45,18 @@ public class View {
             }
             catch (InvalidItemIdException e) 
             {
-                System.out.println(e.getMessage());
+                System.out.println("\"" + e.getInvalidId() + "\"" + " is not a valid ID");
             }
             catch (OperationFailedException e)
             {
                 logger.logException(e);
-                System.out.println(e.getMessage());
+                System.out.println("Something went wrong when trying to add item.");
             }
             catch (Exception e)
             {
                 System.out.println("Something went wrong.");
             }
+
         }
 
         double totalPrice = contr.endSale();
@@ -76,12 +77,12 @@ public class View {
             }
             catch (InvalidItemIdException e) 
             {
-                System.out.println(e.getMessage());
+                System.out.println("\"" + e.getInvalidId() + "\"" + " is not a valid ID");
             }
             catch (OperationFailedException e)
             {
                 logger.logException(e);
-                System.out.println(e.getMessage());
+                System.out.println("Something went wrong when trying to add item.");
             }
             catch (Exception e)
             {
